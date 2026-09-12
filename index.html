@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Binoy Sharma — Pediatrician | Sarathi Multi-Speciality Hospital</title>
+<meta name="description" content="Dr. Binoy Sharma, MBBS, DCH — Pediatrician with 22 years of experience at Sarathi Multi-Speciality Hospital, Nalbari, Assam. Book an appointment online." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+  :root {
+    --ink: #0f2b3d;
+    --ink-2: #1e4c6b;
+    --sky: #eaf4fb;
+    --sky-2: #d6ebf7;
+    --mist: #f6fbfd;
+    --gold: #d4a24c;
+    --accent: #2a7fb8;
+    --accent-2: #4fb0d9;
+    --paper: #fefcf8;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    overflow-x: hidden;
+  }
+  .serif { font-family: 'Fraunces', 'Times New Roman', serif; }
+  .grain::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image: radial-gradient(rgba(15,43,61,.035) 1px, transparent 1px);
+    background-size: 3px 3px;
+    pointer-events:none; z-index:1;
+  }
+  /* 3D scene container */
+  .scene-3d { perspective: 1200px; transform-style: preserve-3d; }
+  .float-3d { transform-style: preserve-3d; will-change: transform; }
+  .card-glass {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 20px 60px -20px rgba(15,43,61,0.18), inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+  .soft-shadow { box-shadow: 0 25px 60px -25px rgba(15,43,61,0.35); }
+  .btn-primary {
+    background: linear-gradient(135deg, #2a7fb8 0%, #1e4c6b 100%);
+    color: #fff;
+    transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow: 0 10px 30px -10px rgba(42,127,184,.6);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -12px rgba(42,127,184,.7); }
+  .divider-wave {
+    height: 60px;
+    background: linear-gradient(180deg, var(--sky) 0%, var(--paper) 100%);
+    mask-image: radial-gradient(ellipse at top, #000 60%, transparent 62%);
+  }
+  .stat-num { font-variant-numeric: tabular-nums; }
+  .link-underline { position: relative; }
+  .link-underline::after {
+    content:""; position:absolute; left:0; right:0; bottom:-3px;
+    height:2px; background: currentColor; transform-origin: right;
+    transform: scaleX(0); transition: transform .35s ease;
+  }
+  .link-underline:hover::after { transform-origin: left; transform: scaleX(1); }
+  .chip {
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.35rem .8rem; border-radius:999px;
+    background: rgba(42,127,184,.08); color: var(--ink-2);
+    font-size:.8rem; font-weight:500;
+    border: 1px solid rgba(42,127,184,.15);
+  }
+  .section-tag {
+    letter-spacing:.28em; font-size:.72rem; font-weight:600;
+    text-transform: uppercase; color: var(--accent);
+  }
+  /* Floating orbs background */
+  .orb {
+    position:absolute; border-radius:50%;
+    filter: blur(60px); opacity:.55; pointer-events:none;
+  }
+  /* Form */
+  .field {
+    width:100%; padding: .85rem 1rem; border-radius: 12px;
+    background: rgba(255,255,255,.85);
+    border: 1px solid rgba(15,43,61,.12);
+    transition: border-color .2s, box-shadow .2s;
+    font-size: .95rem;
+  }
+  .field:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(42,127,184,.12);
+  }
+  .label { font-size:.8rem; font-weight:600; color: var(--ink-2); margin-bottom:.4rem; display:block; letter-spacing:.02em; }
+  /* Reveal states */
+  .reveal { opacity:0; transform: translateY(30px); }
+  /* 3D floating illustrations */
+  .illus {
+    position:absolute;
+    pointer-events:none;
+    will-change: transform;
+  }
+  @media (max-width: 768px) {
+    .illus { transform: scale(.6); }
+  }
+</style>
+</head>
+<body class="grain">
+
+<!-- ============ NAV ============ -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#2a7fb8] to-[#1e4c6b] flex items-center justify-center text-white font-bold serif text-lg soft-shadow">BS</div>
+      <div class="leading-tight">
+        <div class="serif text-lg font-semibold">Dr. Binoy Sharma</div>
+        <div class="text-xs text-slate-500">Pediatrician · MBBS, DCH</div>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-700">
+      <a href="#about" class="link-underline">About</a>
+      <a href="#credentials" class="link-underline">Credentials</a>
+      <a href="#experience" class="link-underline">Experience</a>
+      <a href="#appointment" class="link-underline">Appointment</a>
+      <a href="#contact" class="link-underline">Contact</a>
+    </div>
+    <a href="#appointment" class="btn-primary px-5 py-2.5 rounded-full text-sm font-semibold">Book Visit</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative min-h-screen flex items-center overflow-hidden scene-3d pt-24 pb-16">
+  <!-- Soft background wash -->
+  <div class="absolute inset-0 -z-10" style="background: radial-gradient(1200px 600px at 20% 10%, #eaf4fb 0%, transparent 60%), radial-gradient(900px 500px at 90% 40%, #fdf5e6 0%, transparent 60%), linear-gradient(180deg, #fefcf8 0%, #f6fbfd 100%);"></div>
+  <div class="orb" style="width:400px;height:400px;background:#4fb0d9;top:-80px;left:-80px;"></div>
+  <div class="orb" style="width:320px;height:320px;background:#d4a24c;bottom:-60px;right:-60px;opacity:.35;"></div>
+
+  <!-- Floating 3D illustrations -->
+  <div class="illus float-3d" data-depth="0.4" style="top:15%; left:6%;">
+    <svg width="90" height="90" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4fb0d9"/><stop offset="1" stop-color="#2a7fb8"/></linearGradient></defs>
+      <path d="M50 88s-32-20-32-48a20 20 0 0 1 32-16 20 20 0 0 1 32 16c0 28-32 48-32 48z" fill="url(#g1)" opacity=".9"/>
+    </svg>
+  </div>
+  <div class="illus float-3d" data-depth="0.7" style="top:22%; right:8%;">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+      <circle cx="60" cy="60" r="46" fill="#fff" stroke="#2a7fb8" stroke-width="3"/>
+      <path d="M60 30v30l20 12" stroke="#2a7fb8" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="60" cy="60" r="4" fill="#d4a24c"/>
+    </svg>
+  </div>
+  <div class="illus float-3d" data-depth="0.5" style="bottom:15%; left:12%;">
+    <svg width="110" height="110" viewBox="0 0 100 100">
+      <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4a24c"/><stop offset="1" stop-color="#a67c2f"/></linearGradient></defs>
+      <rect x="20" y="40" width="60" height="20" rx="10" fill="url(#g2)"/>
+      <rect x="20" y="40" width="30" height="20" rx="10" fill="#fefcf8"/>
+      <circle cx="30" cy="50" r="2" fill="#a67c2f"/><circle cx="38" cy="50" r="2" fill="#a67c2f"/>
+    </svg>
+  </div>
+  <div class="illus float-3d" data-depth="0.9" style="bottom:25%; right:14%;">
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="30" cy="35" r="12" fill="none" stroke="#2a7fb8" stroke-width="3"/>
+      <circle cx="70" cy="35" r="12" fill="none" stroke="#2a7fb8" stroke-width="3"/>
+      <path d="M30 47v10a20 20 0 0 0 40 0V47" fill="none" stroke="#2a7fb8" stroke-width="3"/>
+      <circle cx="50" cy="75" r="8" fill="#d4a24c"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full">
+    <div class="reveal">
+      <span class="section-tag">Caring for children since 2003</span>
+      <h1 class="serif text-5xl md:text-7xl font-semibold mt-4 leading-[1.05]">
+        Compassionate<br/>pediatric care<br/><em class="text-[#2a7fb8]">for your little ones.</em>
+      </h1>
+      <p class="mt-6 text-lg text-slate-600 max-w-lg leading-relaxed">
+        Twenty-two years of gentle, evidence-based medicine — from newborn checkups to adolescent wellbeing, at Sarathi Multi-Speciality Hospital, Nalbari.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#appointment" class="btn-primary px-7 py-3.5 rounded-full font-semibold text-sm">Book an Appointment →</a>
+        <a href="#about" class="px-7 py-3.5 rounded-full font-semibold text-sm border border-slate-300 hover:border-[#2a7fb8] hover:text-[#2a7fb8] transition">Meet the Doctor</a>
+      </div>
+      <div class="mt-10 flex flex-wrap gap-6 text-sm">
+        <div><div class="stat-num serif text-3xl font-semibold text-[#1e4c6b]">22+</div><div class="text-slate-500">Years of practice</div></div>
+        <div class="w-px bg-slate-200"></div>
+        <div><div class="stat-num serif text-3xl font-semibold text-[#1e4c6b]">10k+</div><div class="text-slate-500">Little patients</div></div>
+        <div class="w-px bg-slate-200"></div>
+        <div><div class="stat-num serif text-3xl font-semibold text-[#1e4c6b]">MBBS<span class="text-lg">, </span>DCH</div><div class="text-slate-500">Qualifications</div></div>
+      </div>
+    </div>
+
+    <!-- Portrait card -->
+    <div class="relative reveal">
+      <div class="scene-3d relative mx-auto max-w-md">
+        <div class="float-3d card-glass rounded-3xl p-6 relative z-10" data-depth="0.3">
+          <div class="aspect-[4/5] rounded-2xl overflow-hidden relative" style="background: linear-gradient(160deg, #d6ebf7 0%, #eaf4fb 40%, #fdf5e6 100%);">
+            <!-- Doctor silhouette illustration -->
+            <svg viewBox="0 0 400 500" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eaf4fb"/>
+                </linearGradient>
+                <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#f4d0b4"/><stop offset="1" stop-color="#e6b591"/>
+                </linearGradient>
+              </defs>
+              <!-- Background rays -->
+              <circle cx="200" cy="180" r="130" fill="#fdf5e6" opacity=".6"/>
+              <!-- Body / coat -->
+              <path d="M80 500 C 80 380, 130 320, 200 320 C 270 320, 320 380, 320 500 Z" fill="url(#coat)"/>
+              <path d="M170 320 L 200 380 L 230 320 Z" fill="#eaf4fb"/>
+              <!-- Neckline -->
+              <path d="M170 320 L 200 360 L 230 320" stroke="#2a7fb8" stroke-width="2" fill="none"/>
+              <!-- Head -->
+              <ellipse cx="200" cy="220" rx="60" ry="70" fill="url(#skin)"/>
+              <!-- Hair (short male cut) -->
+              <path d="M144 205 C 146 168, 172 148, 200 148 C 228 148, 254 168, 256 205 C 256 195, 240 180, 200 180 C 160 180, 144 195, 144 205 Z" fill="#2b1f18"/>
+              <!-- Ears -->
+              <ellipse cx="140" cy="225" rx="6" ry="12" fill="url(#skin)"/>
+              <ellipse cx="260" cy="225" rx="6" ry="12" fill="url(#skin)"/>
+              <!-- Eyebrows -->
+              <path d="M172 205 Q 180 200 190 205" stroke="#2b1f18" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M210 205 Q 220 200 228 205" stroke="#2b1f18" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Eyes -->
+              <ellipse cx="180" cy="218" rx="4" ry="5" fill="#1a1a1a"/>
+              <ellipse cx="220" cy="218" rx="4" ry="5" fill="#1a1a1a"/>
+              <!-- Nose -->
+              <path d="M200 225 Q 198 240 200 248" stroke="#c99a7a" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- Smile -->
+              <path d="M185 265 Q 200 275 215 265" stroke="#8b4a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Moustache -->
+              <path d="M182 258 Q 200 252 218 258" stroke="#2b1f18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              <!-- Stethoscope -->
+              <path d="M170 340 Q 150 380 175 410 Q 200 435 225 410 Q 250 380 230 340" stroke="#1e4c6b" stroke-width="4" fill="none"/>
+              <circle cx="200" cy="435" r="12" fill="#d4a24c" stroke="#1e4c6b" stroke-width="3"/>
+              <circle cx="200" cy="435" r="5" fill="#1e4c6b"/>
+              <!-- Coat button -->
+              <circle cx="200" cy="400" r="3" fill="#2a7fb8"/>
+              <circle cx="200" cy="430" r="3" fill="#2a7fb8"/>
+            </svg>
+          </div>
+          <div class="mt-5 flex items-center justify-between">
+            <div>
+              <div class="serif text-xl font-semibold">Dr. Binoy Sharma</div>
+              <div class="text-sm text-slate-500">Consultant Pediatrician</div>
+            </div>
+            <span class="chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              Verified
+            </span>
+          </div>
+        </div>
+        <!-- Small floating cards -->
+        <div class="float-3d absolute -left-8 top-24 card-glass rounded-2xl p-4 z-20" data-depth="1.2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#eaf4fb] flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">Available daily</div>
+              <div class="text-sm font-semibold">10 AM – 8 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="float-3d absolute -right-6 bottom-16 card-glass rounded-2xl p-4 z-20" data-depth="1.5">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#fdf5e6] flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6L12 2z"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">Reg. No.</div>
+              <div class="text-sm font-semibold">12619 AMC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-slate-400 text-xs flex flex-col items-center gap-2 animate-bounce">
+    <span>Scroll</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="6" r="1.5" fill="currentColor"/></svg>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="relative py-28 overflow-hidden">
+  <div class="orb" style="width:500px;height:500px;background:#eaf4fb;top:20%;right:-150px;opacity:.9;"></div>
+
+  <!-- Floating parallax illustrations -->
+  <div class="illus float-3d" data-depth="0.6" style="top:10%; left:5%;">
+    <svg width="70" height="70" viewBox="0 0 100 100">
+      <path d="M50 15 L 60 40 L 85 42 L 65 60 L 72 85 L 50 72 L 28 85 L 35 60 L 15 42 L 40 40 Z" fill="#d4a24c" opacity=".7"/>
+    </svg>
+  </div>
+  <div class="illus float-3d" data-depth="1.1" style="top:60%; right:8%;">
+    <svg width="80" height="80" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="35" fill="none" stroke="#4fb0d9" stroke-width="4" stroke-dasharray="8 6"/>
+      <path d="M50 30v20l14 8" stroke="#2a7fb8" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal max-w-2xl">
+      <span class="section-tag">About the doctor</span>
+      <h2 class="serif text-4xl md:text-5xl font-semibold mt-3 leading-tight">
+        A steady, familiar hand — <em class="text-[#2a7fb8]">from first breath to first day of school</em> and beyond.
+      </h2>
+      <p class="mt-6 text-slate-600 text-lg leading-relaxed">
+        Practising in Nalbari for over two decades, Dr. Binoy Sharma has cared for generations of children across Assam. She combines the rigour of modern pediatric medicine with the warmth families remember long after the visit is over.
+      </p>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="reveal card-glass rounded-2xl p-7 float-3d" data-depth="0.4">
+        <div class="w-12 h-12 rounded-xl bg-[#eaf4fb] flex items-center justify-center mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 8L12 17l-6.5 4 2-8L2 9h7z"/></svg>
+        </div>
+        <h3 class="serif text-xl font-semibold mb-2">Gentle, family-centred</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">Every consultation is unhurried. We explain, listen, and treat the child — not just the symptoms.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="reveal card-glass rounded-2xl p-7 float-3d" data-depth="0.6">
+        <div class="w-12 h-12 rounded-xl bg-[#fdf5e6] flex items-center justify-center mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3 class="serif text-xl font-semibold mb-2">Newborn to teens</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">Growth checks, immunisations, common illnesses, developmental care, and adolescent health — under one roof.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="reveal card-glass rounded-2xl p-7 float-3d" data-depth="0.8">
+        <div class="w-12 h-12 rounded-xl bg-[#eaf4fb] flex items-center justify-center mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M9 12l2 2 4-4M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+        </div>
+        <h3 class="serif text-xl font-semibold mb-2">Trusted credentials</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">MBBS from Gauhati Medical College &amp; Hospital and DCH-qualified, with active Assam Medical Council registration.</p>
+      </div>
+    </div>
+
+    <!-- Personal snapshot table -->
+    <div class="mt-16 grid md:grid-cols-2 gap-6 reveal">
+      <div class="card-glass rounded-2xl p-8">
+        <h3 class="serif text-2xl font-semibold mb-6">Personal snapshot</h3>
+        <dl class="space-y-4 text-sm">
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Date of Birth</dt><dd class="font-medium">01 January 1970</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Age</dt><dd class="font-medium">54 years</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Gender</dt><dd class="font-medium">Male</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Nationality</dt><dd class="font-medium">Indian</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Marital Status</dt><dd class="font-medium">Married</dd></div>
+          <div class="flex justify-between"><dt class="text-slate-500">Address</dt><dd class="font-medium text-right">Alternative Road,<br/>Nalbari, Assam</dd></div>
+        </dl>
+      </div>
+      <div class="card-glass rounded-2xl p-8">
+        <h3 class="serif text-2xl font-semibold mb-6">At a glance</h3>
+        <dl class="space-y-4 text-sm">
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Specialization</dt><dd class="font-medium">Pediatrician</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Qualification</dt><dd class="font-medium">MBBS, DCH</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Reg. No.</dt><dd class="font-medium">12619 AMC</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Experience</dt><dd class="font-medium">22 years</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Designation</dt><dd class="font-medium">Pediatrician</dd></div>
+          <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Mon – Wed</dt><dd class="font-medium text-right">Kolgasia clinic</dd></div>
+          <div class="flex justify-between"><dt class="text-slate-500">Thu – Sat</dt><dd class="font-medium text-right">Sarathi Multi-Speciality<br/>Hospital, Nalbari</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREDENTIALS / TIMELINE ============ -->
+<section id="credentials" class="relative py-28 overflow-hidden" style="background: linear-gradient(180deg, #f6fbfd 0%, #eaf4fb 100%);">
+  <!-- Floating parallax 3D elements -->
+  <div class="illus float-3d" data-depth="0.8" style="top:8%; right:6%;">
+    <svg width="130" height="130" viewBox="0 0 100 100">
+      <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4fb0d9"/><stop offset="1" stop-color="#2a7fb8"/></linearGradient></defs>
+      <path d="M20 20 h60 v60 h-60z" fill="none" stroke="url(#g3)" stroke-width="3" transform="rotate(15 50 50)"/>
+      <circle cx="50" cy="50" r="18" fill="url(#g3)" opacity=".2"/>
+      <path d="M40 50 l7 7 13-14" stroke="url(#g3)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="illus float-3d" data-depth="1.3" style="bottom:12%; left:4%;">
+    <svg width="90" height="90" viewBox="0 0 100 100">
+      <path d="M30 20 h40 l10 15 v45 h-60 v-45z" fill="#fff" stroke="#1e4c6b" stroke-width="3"/>
+      <line x1="40" y1="45" x2="70" y2="45" stroke="#2a7fb8" stroke-width="2.5"/>
+      <line x1="40" y1="55" x2="70" y2="55" stroke="#2a7fb8" stroke-width="2.5"/>
+      <line x1="40" y1="65" x2="60" y2="65" stroke="#2a7fb8" stroke-width="2.5"/>
+    </svg>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 relative">
+    <div class="reveal text-center max-w-2xl mx-auto">
+      <span class="section-tag">Credentials &amp; training</span>
+      <h2 class="serif text-4xl md:text-5xl font-semibold mt-3 leading-tight">A career built on <em class="text-[#2a7fb8]">rigour and care</em>.</h2>
+    </div>
+
+    <div class="mt-20 relative">
+      <!-- Center line -->
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#2a7fb8] to-transparent"></div>
+
+      <div class="space-y-16">
+        <!-- Item 1 -->
+        <div class="reveal grid md:grid-cols-2 gap-8 items-center">
+          <div class="md:text-right md:pr-12">
+            <div class="text-xs font-semibold text-[#d4a24c] tracking-widest uppercase">1994</div>
+            <h3 class="serif text-2xl font-semibold mt-2">MBBS — Bachelor of Medicine &amp; Surgery</h3>
+            <p class="text-slate-600 mt-2 text-sm">Gauhati Medical College &amp; Hospital (GMCH), Guwahati. Graduated 06 September 1994 — the foundation of a 22-year career in pediatrics.</p>
+          </div>
+          <div class="relative md:pl-12">
+            <div class="hidden md:block absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#2a7fb8] ring-4 ring-white"></div>
+            <div class="card-glass rounded-2xl p-6 float-3d" data-depth="0.5">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-[#eaf4fb] flex items-center justify-center flex-shrink-0">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                </div>
+                <div>
+                  <div class="serif text-lg font-semibold">GMCH, Guwahati</div>
+                  <div class="text-xs text-slate-500">One of Assam's oldest medical institutions</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="reveal grid md:grid-cols-2 gap-8 items-center">
+          <div class="md:order-2 md:pl-12">
+            <div class="text-xs font-semibold text-[#d4a24c] tracking-widest uppercase">1999</div>
+            <h3 class="serif text-2xl font-semibold mt-2">DCH — Diploma in Child Health</h3>
+            <p class="text-slate-600 mt-2 text-sm">Awarded 08 September 1999. Specialised postgraduate training in the care of infants, children, and adolescents.</p>
+          </div>
+          <div class="md:order-1 relative md:pr-12">
+            <div class="hidden md:block absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#d4a24c] ring-4 ring-white"></div>
+            <div class="card-glass rounded-2xl p-6 float-3d" data-depth="0.7">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-[#fdf5e6] flex items-center justify-center flex-shrink-0">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+                </div>
+                <div>
+                  <div class="serif text-lg font-semibold">Pediatric specialisation</div>
+                  <div class="text-xs text-slate-500">Focused on neonatal &amp; child care</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="reveal grid md:grid-cols-2 gap-8 items-center">
+          <div class="md:text-right md:pr-12">
+            <div class="text-xs font-semibold text-[#d4a24c] tracking-widest uppercase">2003 · Present</div>
+            <h3 class="serif text-2xl font-semibold mt-2">22 years in practice</h3>
+            <p class="text-slate-600 mt-2 text-sm">Currently practising as Consultant Pediatrician at Sarathi Multi-Speciality Hospital, serving families across Nalbari and greater Assam.</p>
+          </div>
+          <div class="relative md:pl-12">
+            <div class="hidden md:block absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#2a7fb8] ring-4 ring-white"></div>
+            <div class="card-glass rounded-2xl p-6 float-3d" data-depth="0.5">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-[#eaf4fb] flex items-center justify-center flex-shrink-0">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 12h1M9 15h1M14 9h1M14 12h1M14 15h1"/></svg>
+                </div>
+                <div>
+                  <div class="serif text-lg font-semibold">Sarathi Multi-Speciality Hospital</div>
+                  <div class="text-xs text-slate-500">Nalbari, Assam</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE / QUOTE ============ -->
+<section id="experience" class="relative py-28 overflow-hidden">
+  <div class="illus float-3d" data-depth="0.9" style="top:20%; left:8%;">
+    <svg width="110" height="110" viewBox="0 0 100 100">
+      <path d="M25 30 Q50 10 75 30 T 75 70 Q 50 90 25 70 T 25 30 Z" fill="#eaf4fb" stroke="#2a7fb8" stroke-width="2"/>
+      <path d="M40 50 h20 M50 40 v20" stroke="#2a7fb8" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="illus float-3d" data-depth="1.4" style="bottom:15%; right:10%;">
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="30" cy="50" r="18" fill="#fdf5e6"/>
+      <circle cx="70" cy="50" r="18" fill="#eaf4fb"/>
+      <circle cx="50" cy="35" r="16" fill="#fff" stroke="#d4a24c" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="reveal card-glass rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div class="absolute -top-10 -left-6 serif text-[200px] leading-none text-[#eaf4fb] font-semibold select-none">"</div>
+      <div class="relative">
+        <span class="section-tag">In her own words</span>
+        <blockquote class="serif text-2xl md:text-4xl font-normal mt-6 leading-snug text-[#1e4c6b]">
+          Children heal fastest when they feel <em class="text-[#d4a24c]">safe, seen, and unhurried</em>. Twenty-two years in, that&rsquo;s still the whole practice.
+        </blockquote>
+        <div class="mt-8 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#2a7fb8] to-[#1e4c6b] flex items-center justify-center text-white font-bold serif">BS</div>
+          <div>
+            <div class="font-semibold">Dr. Binoy Sharma</div>
+            <div class="text-sm text-slate-500">Pediatrician · MBBS, DCH · Reg. 12619 AMC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPOINTMENT ============ -->
+<section id="appointment" class="relative py-28 overflow-hidden" style="background: linear-gradient(180deg, #eaf4fb 0%, #f6fbfd 100%);">
+  <div class="orb" style="width:400px;height:400px;background:#4fb0d9;top:10%;left:-100px;opacity:.3;"></div>
+  <div class="orb" style="width:350px;height:350px;background:#d4a24c;bottom:0;right:-80px;opacity:.25;"></div>
+
+  <!-- Floating 3D illustrations -->
+  <div class="illus float-3d" data-depth="0.7" style="top:12%; right:5%;">
+    <svg width="120" height="120" viewBox="0 0 100 100">
+      <rect x="15" y="20" width="70" height="70" rx="8" fill="#fff" stroke="#2a7fb8" stroke-width="3"/>
+      <line x1="15" y1="35" x2="85" y2="35" stroke="#2a7fb8" stroke-width="3"/>
+      <line x1="30" y1="12" x2="30" y2="28" stroke="#2a7fb8" stroke-width="4" stroke-linecap="round"/>
+      <line x1="70" y1="12" x2="70" y2="28" stroke="#2a7fb8" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="35" cy="55" r="4" fill="#d4a24c"/>
+      <circle cx="50" cy="55" r="4" fill="#d4a24c" opacity=".5"/>
+      <circle cx="65" cy="55" r="4" fill="#d4a24c" opacity=".3"/>
+      <circle cx="35" cy="70" r="4" fill="#d4a24c" opacity=".5"/>
+      <circle cx="50" cy="70" r="4" fill="#d4a24c"/>
+      <circle cx="65" cy="70" r="4" fill="#d4a24c" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="illus float-3d" data-depth="1.2" style="bottom:10%; left:6%;">
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <path d="M50 15 A35 35 0 1 1 15 50" fill="none" stroke="#d4a24c" stroke-width="3" stroke-linecap="round"/>
+      <path d="M15 40 L15 50 L25 50" fill="none" stroke="#d4a24c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="50" cy="50" r="6" fill="#2a7fb8"/>
+    </svg>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-5 gap-12 items-start">
+      <!-- Left column -->
+      <div class="md:col-span-2 reveal">
+        <span class="section-tag">Book an appointment</span>
+        <h2 class="serif text-4xl md:text-5xl font-semibold mt-3 leading-tight">Bring your little one in — <em class="text-[#2a7fb8]">we&rsquo;ll take it from there.</em></h2>
+        <p class="mt-6 text-slate-600 leading-relaxed">Fill in a few details and we&rsquo;ll confirm your slot by phone or email. For urgent concerns, please call the hospital directly.</p>
+
+        <div class="mt-8 space-y-4">
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.72 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.35 1.85.59 2.81.72a2 2 0 011.72 2z"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">Phone</div>
+              <a href="tel:+918453860547" class="font-semibold hover:text-[#2a7fb8] transition">+91 84538 60547</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="min-w-0">
+              <div class="text-xs text-slate-500">Email</div>
+              <a href="/cdn-cgi/l/email-protection#2e5b5d464f5c4f40474a4b58471f1717176e49434f4742004d4143" class="font-semibold hover:text-[#2a7fb8] transition break-all"><span class="__cf_email__" data-cfemail="f683859e978497989f9293809fc7cfcfcfb6919b979f9ad895999b">[email&#160;protected]</span></a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">Clinic — Mon to Wed</div>
+              <div class="font-semibold">Kolgasia</div>
+              <div class="text-xs text-slate-500">10 AM – 8 PM</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">Clinic — Thu to Sat</div>
+              <div class="font-semibold">Sarathi Multi-Speciality Hospital</div>
+              <div class="text-xs text-slate-500">Alternative Road, Nalbari, Assam · 10 AM – 8 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: form -->
+      <div class="md:col-span-3 reveal">
+        <div class="card-glass rounded-3xl p-8 md:p-10 float-3d" data-depth="0.3">
+          <form id="appointmentForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST">
+            <!-- Formspree: send confirmation to the doctor -->
+            <input type="hidden" name="_subject" value="New appointment request — Dr. Binoy Sharma" />
+            <input type="hidden" name="_replyto" id="hiddenReplyTo" />
+
+            <div class="grid md:grid-cols-2 gap-5">
+              <div>
+                <label class="label" for="parent">Parent / guardian name</label>
+                <input class="field" id="parent" name="Parent name" type="text" required placeholder="e.g. Anjali Sharma" />
+              </div>
+              <div>
+                <label class="label" for="child">Child's name</label>
+                <input class="field" id="child" name="Child name" type="text" required placeholder="e.g. Aarav Sharma" />
+              </div>
+              <div>
+                <label class="label" for="age">Child's age</label>
+                <input class="field" id="age" name="Child age" type="text" required placeholder="e.g. 3 years" />
+              </div>
+              <div>
+                <label class="label" for="phone">Phone number</label>
+                <input class="field" id="phone" name="Phone" type="tel" required placeholder="+91 …" />
+              </div>
+              <div class="md:col-span-2">
+                <label class="label" for="email">Email</label>
+                <input class="field" id="email" name="Email" type="email" required placeholder="you@example.com" />
+              </div>
+              <div class="md:col-span-2">
+                <label class="label" for="location">Preferred clinic</label>
+                <select class="field" id="location" name="Preferred clinic" required>
+                  <option value="">Select a location</option>
+                  <option>Kolgasia (Mon – Wed)</option>
+                  <option>Sarathi Multi-Speciality Hospital, Nalbari (Thu – Sat)</option>
+                </select>
+              </div>
+              <div>
+                <label class="label" for="date">Preferred date</label>
+                <input class="field" id="date" name="Preferred date" type="date" required />
+              </div>
+              <div>
+                <label class="label" for="time">Preferred time</label>
+                <select class="field" id="time" name="Preferred time" required>
+                  <option value="">Select a slot</option>
+                  <option>10:00 AM – 11:00 AM</option>
+                  <option>11:00 AM – 12:00 PM</option>
+                  <option>12:00 PM – 01:00 PM</option>
+                  <option>01:00 PM – 02:00 PM</option>
+                  <option>02:00 PM – 03:00 PM</option>
+                  <option>03:00 PM – 04:00 PM</option>
+                  <option>04:00 PM – 05:00 PM</option>
+                  <option>05:00 PM – 06:00 PM</option>
+                  <option>06:00 PM – 07:00 PM</option>
+                  <option>07:00 PM – 08:00 PM</option>
+                </select>
+              </div>
+              <div class="md:col-span-2">
+                <label class="label" for="reason">Reason for visit</label>
+                <textarea class="field" id="reason" name="Reason" rows="4" placeholder="Briefly describe the symptoms or reason for the appointment…" required></textarea>
+              </div>
+            </div>
+
+            <div class="mt-6 flex items-start gap-3">
+              <input id="consent" type="checkbox" required class="mt-1" />
+              <label for="consent" class="text-xs text-slate-600 leading-relaxed">I consent to being contacted at the phone number and email provided, and understand that this is a request — the clinic will confirm the final slot.</label>
+            </div>
+
+            <button type="submit" class="btn-primary mt-8 w-full py-4 rounded-full font-semibold flex items-center justify-center gap-2">
+              <span id="btnLabel">Send appointment request</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+
+            <div id="formStatus" class="mt-4 text-sm text-center hidden"></div>
+          </form>
+
+          <p class="mt-6 text-xs text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
+            <strong>Setup note:</strong> Replace <code class="bg-slate-100 px-1 py-0.5 rounded">REPLACE_WITH_YOUR_FORMSPREE_ID</code> in this file with your Formspree endpoint (sign up free at formspree.io and add <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f386809b9281929d9a9796859ac2cacacab3949e929a9fdd909c9e">[email&#160;protected]</a> as the destination). Until then, submissions will not be delivered.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DECLARATION / FOOTER ============ -->
+<section id="contact" class="relative py-24 overflow-hidden bg-[#0f2b3d] text-white">
+  <div class="orb" style="width:400px;height:400px;background:#2a7fb8;top:-100px;right:-100px;opacity:.4;"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative">
+    <div class="grid md:grid-cols-3 gap-10">
+      <div class="md:col-span-2">
+        <span class="section-tag" style="color:#d4a24c;">Declaration</span>
+        <p class="serif text-2xl md:text-3xl mt-4 leading-snug">
+          &ldquo;I hereby declare that the information stated on this site is true and correct to the best of my knowledge.&rdquo;
+        </p>
+        <p class="mt-4 text-slate-300">— Dr. Binoy Sharma, MBBS, DCH</p>
+      </div>
+      <div>
+        <div class="serif text-lg font-semibold mb-4">Reach the clinics</div>
+        <ul class="space-y-3 text-sm text-slate-300">
+          <li><a href="tel:+918453860547" class="hover:text-white transition">+91 84538 60547</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#bcc9cfd4ddceddd2d5d8d9cad58d858585fcdbd1ddd5d092dfd3d1" class="hover:text-white transition break-all"><span class="__cf_email__" data-cfemail="d6a3a5beb7a4b7b8bfb2b3a0bfe7efefef96b1bbb7bfbaf8b5b9bb">[email&#160;protected]</span></a></li>
+          <li class="pt-2 border-t border-white/10">
+            <div class="text-xs uppercase tracking-widest text-[#d4a24c] mb-1">Mon – Wed</div>
+            Kolgasia · 10 AM – 8 PM
+          </li>
+          <li>
+            <div class="text-xs uppercase tracking-widest text-[#d4a24c] mb-1">Thu – Sat</div>
+            Sarathi Multi-Speciality Hospital,<br/>Alternative Road, Nalbari, Assam · 10 AM – 8 PM
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div>© <span id="yr"></span> Dr. Binoy Sharma · All rights reserved</div>
+      <div>Reg. No. 12619 AMC · Sarathi Multi-Speciality Hospital, Nalbari</div>
+    </div>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Nav scroll style
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      nav.classList.add('bg-white/80','backdrop-blur','shadow-sm');
+    } else {
+      nav.classList.remove('bg-white/80','backdrop-blur','shadow-sm');
+    }
+  });
+
+  // Set min date on appointment form to today
+  const dateInput = document.getElementById('date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+
+  // Mirror email to reply-to and enhance form UX with fetch submit
+  const form = document.getElementById('appointmentForm');
+  const status = document.getElementById('formStatus');
+  const btnLabel = document.getElementById('btnLabel');
+
+  form.addEventListener('submit', async (e) => {
+    document.getElementById('hiddenReplyTo').value = document.getElementById('email').value;
+    // Only intercept if endpoint is real (formspree.io/f/xxxxxx)
+    const action = form.getAttribute('action');
+    if (!action.includes('REPLACE_WITH_YOUR_FORMSPREE_ID')) {
+      e.preventDefault();
+      btnLabel.textContent = 'Sending…';
+      try {
+        const res = await fetch(action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (res.ok) {
+          status.className = 'mt-4 text-sm text-center text-green-700 bg-green-50 border border-green-200 py-3 rounded-lg';
+          status.textContent = 'Thank you — your appointment request has been sent. We will confirm shortly.';
+          status.classList.remove('hidden');
+          form.reset();
+          btnLabel.textContent = 'Send another request';
+        } else {
+          throw new Error('Network');
+        }
+      } catch (err) {
+        status.className = 'mt-4 text-sm text-center text-red-700 bg-red-50 border border-red-200 py-3 rounded-lg';
+        status.textContent = 'Sorry, something went wrong. Please call +91 84538 60547 directly.';
+        status.classList.remove('hidden');
+        btnLabel.textContent = 'Try again';
+      }
+    }
+    // else: let the browser submit natively so Formspree shows the setup message
+  });
+
+  // ============ GSAP PARALLAX ============
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Reveal on scroll
+  gsap.utils.toArray('.reveal').forEach((el) => {
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' }
+    });
+  });
+
+  // Floating 3D parallax on scroll
+  gsap.utils.toArray('.float-3d').forEach((el) => {
+    const depth = parseFloat(el.dataset.depth || '0.5');
+    gsap.to(el, {
+      y: () => -80 * depth,
+      rotationX: () => 6 * depth,
+      rotationY: () => -8 * depth,
+      rotationZ: () => 4 * depth,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+  });
+
+  // Mouse parallax on hero
+  const heroScene = document.querySelector('#top');
+  heroScene.addEventListener('mousemove', (e) => {
+    const rect = heroScene.getBoundingClientRect();
+    const cx = (e.clientX - rect.left) / rect.width - 0.5;
+    const cy = (e.clientY - rect.top) / rect.height - 0.5;
+    heroScene.querySelectorAll('.float-3d').forEach((el) => {
+      const depth = parseFloat(el.dataset.depth || '0.5');
+      gsap.to(el, {
+        x: cx * 30 * depth,
+        rotationY: cx * 12 * depth,
+        rotationX: -cy * 12 * depth,
+        duration: 0.9,
+        ease: 'power2.out'
+      });
+    });
+  });
+
+  // Gentle idle float
+  gsap.utils.toArray('.illus').forEach((el, i) => {
+    gsap.to(el, {
+      y: '+=15',
+      duration: 3 + (i % 3),
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+  });
+</script>
+</body>
+</html>
