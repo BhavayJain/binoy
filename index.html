@@ -572,7 +572,7 @@
             </div>
             <div class="min-w-0">
               <div class="text-xs text-slate-500">Email</div>
-              <a href="/cdn-cgi/l/email-protection#2e5b5d464f5c4f40474a4b58471f1717176e49434f4742004d4143" class="font-semibold hover:text-[#2a7fb8] transition break-all"><span class="__cf_email__" data-cfemail="f683859e978497989f9293809fc7cfcfcfb6919b979f9ad895999b">[email&#160;protected]</span></a>
+              <a href="/cdn-cgi/l/email-protection#b5c0c6ddd4c7d4dbdcd1d0c3dc848c8c8cf5d2d8d4dcd99bd6dad8" class="font-semibold hover:text-[#2a7fb8] transition break-all"><span class="__cf_email__" data-cfemail="0673756e677467686f6263706f373f3f3f46616b676f6a2865696b">[email&#160;protected]</span></a>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -604,7 +604,6 @@
           <form id="appointmentForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST">
             <!-- Formspree: send confirmation to the doctor -->
             <input type="hidden" name="_subject" value="New appointment request — Dr. Binoy Sharma" />
-            <input type="hidden" name="_replyto" id="hiddenReplyTo" />
 
             <div class="grid md:grid-cols-2 gap-5">
               <div>
@@ -622,10 +621,6 @@
               <div>
                 <label class="label" for="phone">Phone number</label>
                 <input class="field" id="phone" name="Phone" type="tel" required placeholder="+91 …" />
-              </div>
-              <div class="md:col-span-2">
-                <label class="label" for="email">Email</label>
-                <input class="field" id="email" name="Email" type="email" required placeholder="you@example.com" />
               </div>
               <div class="md:col-span-2">
                 <label class="label" for="location">Preferred clinic</label>
@@ -663,7 +658,7 @@
 
             <div class="mt-6 flex items-start gap-3">
               <input id="consent" type="checkbox" required class="mt-1" />
-              <label for="consent" class="text-xs text-slate-600 leading-relaxed">I consent to being contacted at the phone number and email provided, and understand that this is a request — the clinic will confirm the final slot.</label>
+              <label for="consent" class="text-xs text-slate-600 leading-relaxed">I consent to being contacted at the phone number provided, and understand that this is a request — the clinic will confirm the final slot.</label>
             </div>
 
             <button type="submit" class="btn-primary mt-8 w-full py-4 rounded-full font-semibold flex items-center justify-center gap-2">
@@ -675,7 +670,7 @@
           </form>
 
           <p class="mt-6 text-xs text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
-            <strong>Setup note:</strong> Replace <code class="bg-slate-100 px-1 py-0.5 rounded">REPLACE_WITH_YOUR_FORMSPREE_ID</code> in this file with your Formspree endpoint (sign up free at formspree.io and add <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f386809b9281929d9a9796859ac2cacacab3949e929a9fdd909c9e">[email&#160;protected]</a> as the destination). Until then, submissions will not be delivered.
+            <strong>Setup note:</strong> Replace <code class="bg-slate-100 px-1 py-0.5 rounded">REPLACE_WITH_YOUR_FORMSPREE_ID</code> in this file with your Formspree endpoint (sign up free at formspree.io and add <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbbeb8a3aab9aaa5a2afaebda2faf2f2f28baca6aaa2a7e5a8a4a6">[email&#160;protected]</a> as the destination). Until then, submissions will not be delivered.
           </p>
         </div>
       </div>
@@ -700,7 +695,7 @@
         <div class="serif text-lg font-semibold mb-4">Reach the clinics</div>
         <ul class="space-y-3 text-sm text-slate-300">
           <li><a href="tel:+918453860547" class="hover:text-white transition">+91 84538 60547</a></li>
-          <li><a href="/cdn-cgi/l/email-protection#bcc9cfd4ddceddd2d5d8d9cad58d858585fcdbd1ddd5d092dfd3d1" class="hover:text-white transition break-all"><span class="__cf_email__" data-cfemail="d6a3a5beb7a4b7b8bfb2b3a0bfe7efefef96b1bbb7bfbaf8b5b9bb">[email&#160;protected]</span></a></li>
+          <li><a href="/cdn-cgi/l/email-protection#a9dcdac1c8dbc8c7c0cdccdfc098909090e9cec4c8c0c587cac6c4" class="hover:text-white transition break-all"><span class="__cf_email__" data-cfemail="0277716a6370636c6b6667746b333b3b3b42656f636b6e2c616d6f">[email&#160;protected]</span></a></li>
           <li class="pt-2 border-t border-white/10">
             <div class="text-xs uppercase tracking-widest text-[#d4a24c] mb-1">Mon – Wed</div>
             Kolgasia · 10 AM – 8 PM
@@ -744,7 +739,6 @@
   const btnLabel = document.getElementById('btnLabel');
 
   form.addEventListener('submit', async (e) => {
-    document.getElementById('hiddenReplyTo').value = document.getElementById('email').value;
     // Only intercept if endpoint is real (formspree.io/f/xxxxxx)
     const action = form.getAttribute('action');
     if (!action.includes('REPLACE_WITH_YOUR_FORMSPREE_ID')) {
