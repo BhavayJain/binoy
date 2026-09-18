@@ -9,7 +9,7 @@
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Tailwind (CDN) -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -32,12 +32,24 @@
   }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
     color: var(--ink);
     background: var(--paper);
     overflow-x: hidden;
+    font-weight: 400;
+    letter-spacing: -0.005em;
   }
-  .serif { font-family: 'Fraunces', 'Times New Roman', serif; }
+  .serif {
+    font-family: 'Space Grotesk', 'Inter Tight', sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+  .serif em { font-style: normal; }
+  .mono-tag {
+    font-family: 'Space Grotesk', monospace;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
   .grain::before{
     content:"";
     position:fixed; inset:0;
@@ -49,62 +61,81 @@
   .scene-3d { perspective: 1200px; transform-style: preserve-3d; }
   .float-3d { transform-style: preserve-3d; will-change: transform; }
   .card-glass {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.9);
-    box-shadow: 0 20px 60px -20px rgba(15,43,61,0.18), inset 0 1px 0 rgba(255,255,255,0.9);
+    background: #ffffff;
+    border: 1px solid rgba(15,43,61,0.9);
+    border-radius: 0;
+    box-shadow: 8px 8px 0 0 rgba(15,43,61,0.08);
+    position: relative;
   }
-  .soft-shadow { box-shadow: 0 25px 60px -25px rgba(15,43,61,0.35); }
+  .soft-shadow { box-shadow: 6px 6px 0 0 rgba(15,43,61,0.12); }
   .btn-primary {
-    background: linear-gradient(135deg, #2a7fb8 0%, #1e4c6b 100%);
+    background: #1e4c6b;
     color: #fff;
-    transition: transform .25s ease, box-shadow .25s ease;
-    box-shadow: 0 10px 30px -10px rgba(42,127,184,.6);
+    border: 1px solid #0f2b3d;
+    border-radius: 0;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    box-shadow: 5px 5px 0 0 #d4a24c;
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -12px rgba(42,127,184,.7); }
-  .divider-wave {
-    height: 60px;
-    background: linear-gradient(180deg, var(--sky) 0%, var(--paper) 100%);
-    mask-image: radial-gradient(ellipse at top, #000 60%, transparent 62%);
+  .btn-primary:hover {
+    background: #0f2b3d;
+    transform: translate(-2px,-2px);
+    box-shadow: 8px 8px 0 0 #d4a24c;
   }
   .stat-num { font-variant-numeric: tabular-nums; }
   .link-underline { position: relative; }
   .link-underline::after {
     content:""; position:absolute; left:0; right:0; bottom:-3px;
-    height:2px; background: currentColor; transform-origin: right;
-    transform: scaleX(0); transition: transform .35s ease;
+    height:1px; background: currentColor; transform-origin: right;
+    transform: scaleX(0); transition: transform .25s ease;
   }
   .link-underline:hover::after { transform-origin: left; transform: scaleX(1); }
   .chip {
-    display:inline-flex; align-items:center; gap:.5rem;
-    padding:.35rem .8rem; border-radius:999px;
-    background: rgba(42,127,184,.08); color: var(--ink-2);
-    font-size:.8rem; font-weight:500;
-    border: 1px solid rgba(42,127,184,.15);
+    display:inline-flex; align-items:center; gap:.4rem;
+    padding:.3rem .7rem; border-radius: 0;
+    background: #0f2b3d; color: #d4a24c;
+    font-size:.7rem; font-weight:600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: none;
+    font-family: 'Space Grotesk', monospace;
   }
   .section-tag {
-    letter-spacing:.28em; font-size:.72rem; font-weight:600;
+    letter-spacing:.32em; font-size:.68rem; font-weight:600;
     text-transform: uppercase; color: var(--accent);
+    font-family: 'Space Grotesk', monospace;
+    display: inline-flex; align-items: center; gap: .6rem;
   }
-  /* Floating orbs background */
+  .section-tag::before {
+    content:""; width: 28px; height: 1px; background: var(--accent);
+  }
+  /* Sharp geometric accents instead of soft orbs */
   .orb {
-    position:absolute; border-radius:50%;
-    filter: blur(60px); opacity:.55; pointer-events:none;
+    position:absolute; pointer-events:none;
+    opacity:.18;
+    filter: none;
+    background: linear-gradient(135deg, #2a7fb8 0%, transparent 60%);
   }
   /* Form */
   .field {
-    width:100%; padding: .85rem 1rem; border-radius: 12px;
-    background: rgba(255,255,255,.85);
-    border: 1px solid rgba(15,43,61,.12);
-    transition: border-color .2s, box-shadow .2s;
+    width:100%; padding: .85rem 1rem; border-radius: 0;
+    background: #ffffff;
+    border: 1px solid rgba(15,43,61,.25);
+    transition: border-color .15s, box-shadow .15s;
     font-size: .95rem;
+    font-family: 'Inter Tight', sans-serif;
   }
   .field:focus {
-    outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(42,127,184,.12);
+    outline: none; border-color: var(--ink);
+    box-shadow: 4px 4px 0 0 #d4a24c;
   }
-  .label { font-size:.8rem; font-weight:600; color: var(--ink-2); margin-bottom:.4rem; display:block; letter-spacing:.02em; }
+  .label {
+    font-family: 'Space Grotesk', monospace;
+    font-size:.7rem; font-weight:600; color: var(--ink-2);
+    margin-bottom:.45rem; display:block;
+    letter-spacing:.16em; text-transform: uppercase;
+  }
   /* Reveal states */
   .reveal { opacity:0; transform: translateY(30px); }
   /* 3D floating illustrations */
@@ -124,7 +155,7 @@
 <nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
   <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="#top" class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#2a7fb8] to-[#1e4c6b] flex items-center justify-center text-white font-bold serif text-lg soft-shadow">BS</div>
+      <div class="w-10 h-10 rounded-none bg-gradient-to-br from-[#2a7fb8] to-[#1e4c6b] flex items-center justify-center text-white font-bold serif text-lg soft-shadow">BS</div>
       <div class="leading-tight">
         <div class="serif text-lg font-semibold">Dr. Binoy Kumar Sarma</div>
         <div class="text-xs text-slate-500">Pediatrician · MBBS, DCH</div>
@@ -137,7 +168,7 @@
       <a href="#appointment" class="link-underline">Appointment</a>
       <a href="#contact" class="link-underline">Contact</a>
     </div>
-    <a href="#appointment" class="btn-primary px-5 py-2.5 rounded-full text-sm font-semibold">Book Visit</a>
+    <a href="#appointment" class="btn-primary px-5 py-2.5 rounded-none text-sm font-semibold">Book Visit</a>
   </div>
 </nav>
 
@@ -189,8 +220,8 @@
         Twenty-two years of gentle, evidence-based medicine — from newborn checkups to adolescent wellbeing, at Sarathi Multi-Speciality Hospital, Nalbari.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
-        <a href="#appointment" class="btn-primary px-7 py-3.5 rounded-full font-semibold text-sm">Book an Appointment →</a>
-        <a href="#about" class="px-7 py-3.5 rounded-full font-semibold text-sm border border-slate-300 hover:border-[#2a7fb8] hover:text-[#2a7fb8] transition">Meet the Doctor</a>
+        <a href="#appointment" class="btn-primary px-7 py-3.5 rounded-none font-semibold text-sm">Book an Appointment →</a>
+        <a href="#about" class="px-7 py-3.5 rounded-none font-semibold text-sm border border-slate-300 hover:border-[#2a7fb8] hover:text-[#2a7fb8] transition">Meet the Doctor</a>
       </div>
       <div class="mt-10 flex flex-wrap gap-6 text-sm">
         <div><div class="stat-num serif text-3xl font-semibold text-[#1e4c6b]">22+</div><div class="text-slate-500">Years of practice</div></div>
@@ -204,8 +235,8 @@
     <!-- Portrait card -->
     <div class="relative reveal">
       <div class="scene-3d relative mx-auto max-w-md">
-        <div class="float-3d card-glass rounded-3xl p-6 relative z-10" data-depth="0.3">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden relative" style="background: linear-gradient(160deg, #d6ebf7 0%, #eaf4fb 40%, #fdf5e6 100%);">
+        <div class="float-3d card-glass rounded-none p-6 relative z-10" data-depth="0.3">
+          <div class="aspect-[4/5] rounded-none overflow-hidden relative" style="background: linear-gradient(160deg, #d6ebf7 0%, #eaf4fb 40%, #fdf5e6 100%);">
             <!-- Doctor silhouette illustration -->
             <svg viewBox="0 0 400 500" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -263,9 +294,9 @@
           </div>
         </div>
         <!-- Small floating cards -->
-        <div class="float-3d absolute -left-8 top-24 card-glass rounded-2xl p-4 z-20" data-depth="1.2">
+        <div class="float-3d absolute -left-8 top-24 card-glass rounded-none p-4 z-20" data-depth="1.2">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-[#eaf4fb] flex items-center justify-center">
+            <div class="w-10 h-10 rounded-none bg-[#eaf4fb] flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
             </div>
             <div>
@@ -274,9 +305,9 @@
             </div>
           </div>
         </div>
-        <div class="float-3d absolute -right-6 bottom-16 card-glass rounded-2xl p-4 z-20" data-depth="1.5">
+        <div class="float-3d absolute -right-6 bottom-16 card-glass rounded-none p-4 z-20" data-depth="1.5">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-[#fdf5e6] flex items-center justify-center">
+            <div class="w-10 h-10 rounded-none bg-[#fdf5e6] flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6L12 2z"/></svg>
             </div>
             <div>
@@ -292,7 +323,7 @@
   <!-- Scroll indicator -->
   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-slate-400 text-xs flex flex-col items-center gap-2 animate-bounce">
     <span>Scroll</span>
-    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="6" r="1.5" fill="currentColor"/></svg>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><rect x="1" y="1" width="12" height="18" stroke="currentColor" stroke-width="1.5"/><rect x="6" y="5" width="2" height="3" fill="currentColor"/></svg>
   </div>
 </section>
 
@@ -326,24 +357,24 @@
 
     <div class="mt-16 grid md:grid-cols-3 gap-6">
       <!-- Card 1 -->
-      <div class="reveal card-glass rounded-2xl p-7 float-3d" data-depth="0.4">
-        <div class="w-12 h-12 rounded-xl bg-[#eaf4fb] flex items-center justify-center mb-5">
+      <div class="reveal card-glass rounded-none p-7 float-3d" data-depth="0.4">
+        <div class="w-12 h-12 rounded-none bg-[#eaf4fb] flex items-center justify-center mb-5">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 8L12 17l-6.5 4 2-8L2 9h7z"/></svg>
         </div>
         <h3 class="serif text-xl font-semibold mb-2">Gentle, family-centred</h3>
         <p class="text-slate-600 text-sm leading-relaxed">Every consultation is unhurried. We explain, listen, and treat the child — not just the symptoms.</p>
       </div>
       <!-- Card 2 -->
-      <div class="reveal card-glass rounded-2xl p-7 float-3d" data-depth="0.6">
-        <div class="w-12 h-12 rounded-xl bg-[#fdf5e6] flex items-center justify-center mb-5">
+      <div class="reveal card-glass rounded-none p-7 float-3d" data-depth="0.6">
+        <div class="w-12 h-12 rounded-none bg-[#fdf5e6] flex items-center justify-center mb-5">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
         <h3 class="serif text-xl font-semibold mb-2">Newborn to teens</h3>
         <p class="text-slate-600 text-sm leading-relaxed">Growth checks, immunisations, common illnesses, developmental care, and adolescent health — under one roof.</p>
       </div>
       <!-- Card 3 -->
-      <div class="reveal card-glass rounded-2xl p-7 float-3d" data-depth="0.8">
-        <div class="w-12 h-12 rounded-xl bg-[#eaf4fb] flex items-center justify-center mb-5">
+      <div class="reveal card-glass rounded-none p-7 float-3d" data-depth="0.8">
+        <div class="w-12 h-12 rounded-none bg-[#eaf4fb] flex items-center justify-center mb-5">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M9 12l2 2 4-4M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
         </div>
         <h3 class="serif text-xl font-semibold mb-2">Trusted credentials</h3>
@@ -353,7 +384,7 @@
 
     <!-- Personal snapshot table -->
     <div class="mt-16 grid md:grid-cols-2 gap-6 reveal">
-      <div class="card-glass rounded-2xl p-8">
+      <div class="card-glass rounded-none p-8">
         <h3 class="serif text-2xl font-semibold mb-6">Personal snapshot</h3>
         <dl class="space-y-4 text-sm">
           <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Date of Birth</dt><dd class="font-medium">01 January 1970</dd></div>
@@ -364,7 +395,7 @@
           <div class="flex justify-between"><dt class="text-slate-500">Address</dt><dd class="font-medium text-right">Alternative Road,<br/>Nalbari, Assam</dd></div>
         </dl>
       </div>
-      <div class="card-glass rounded-2xl p-8">
+      <div class="card-glass rounded-none p-8">
         <h3 class="serif text-2xl font-semibold mb-6">At a glance</h3>
         <dl class="space-y-4 text-sm">
           <div class="flex justify-between border-b border-slate-100 pb-3"><dt class="text-slate-500">Specialization</dt><dd class="font-medium">Pediatrician</dd></div>
@@ -419,10 +450,10 @@
             <p class="text-slate-600 mt-2 text-sm">Gauhati Medical College &amp; Hospital (GMCH), Guwahati. Graduated 06 September 1994 — the foundation of a 22-year career in pediatrics.</p>
           </div>
           <div class="relative md:pl-12">
-            <div class="hidden md:block absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#2a7fb8] ring-4 ring-white"></div>
-            <div class="card-glass rounded-2xl p-6 float-3d" data-depth="0.5">
+            <div class="hidden md:block absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-none bg-[#2a7fb8] ring-4 ring-white"></div>
+            <div class="card-glass rounded-none p-6 float-3d" data-depth="0.5">
               <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-xl bg-[#eaf4fb] flex items-center justify-center flex-shrink-0">
+                <div class="w-14 h-14 rounded-none bg-[#eaf4fb] flex items-center justify-center flex-shrink-0">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                 </div>
                 <div>
@@ -442,10 +473,10 @@
             <p class="text-slate-600 mt-2 text-sm">Awarded 08 September 1999. Specialised postgraduate training in the care of infants, children, and adolescents.</p>
           </div>
           <div class="md:order-1 relative md:pr-12">
-            <div class="hidden md:block absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#d4a24c] ring-4 ring-white"></div>
-            <div class="card-glass rounded-2xl p-6 float-3d" data-depth="0.7">
+            <div class="hidden md:block absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-none bg-[#d4a24c] ring-4 ring-white"></div>
+            <div class="card-glass rounded-none p-6 float-3d" data-depth="0.7">
               <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-xl bg-[#fdf5e6] flex items-center justify-center flex-shrink-0">
+                <div class="w-14 h-14 rounded-none bg-[#fdf5e6] flex items-center justify-center flex-shrink-0">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
                 </div>
                 <div>
@@ -465,10 +496,10 @@
             <p class="text-slate-600 mt-2 text-sm">Currently practising as Consultant Pediatrician at Sarathi Multi-Speciality Hospital, serving families across Nalbari and greater Assam.</p>
           </div>
           <div class="relative md:pl-12">
-            <div class="hidden md:block absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#2a7fb8] ring-4 ring-white"></div>
-            <div class="card-glass rounded-2xl p-6 float-3d" data-depth="0.5">
+            <div class="hidden md:block absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-none bg-[#2a7fb8] ring-4 ring-white"></div>
+            <div class="card-glass rounded-none p-6 float-3d" data-depth="0.5">
               <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-xl bg-[#eaf4fb] flex items-center justify-center flex-shrink-0">
+                <div class="w-14 h-14 rounded-none bg-[#eaf4fb] flex items-center justify-center flex-shrink-0">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M9 12h1M9 15h1M14 9h1M14 12h1M14 15h1"/></svg>
                 </div>
                 <div>
@@ -501,7 +532,7 @@
   </div>
 
   <div class="max-w-5xl mx-auto px-6">
-    <div class="reveal card-glass rounded-3xl p-10 md:p-16 relative overflow-hidden">
+    <div class="reveal card-glass rounded-none p-10 md:p-16 relative overflow-hidden">
       <div class="absolute -top-10 -left-6 serif text-[200px] leading-none text-[#eaf4fb] font-semibold select-none">"</div>
       <div class="relative">
         <span class="section-tag">In his own words</span>
@@ -509,7 +540,7 @@
           Children heal fastest when they feel <em class="text-[#d4a24c]">safe, seen, and unhurried</em>. Twenty-two years in, that&rsquo;s still the whole practice.
         </blockquote>
         <div class="mt-8 flex items-center gap-4">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#2a7fb8] to-[#1e4c6b] flex items-center justify-center text-white font-bold serif">BS</div>
+          <div class="w-12 h-12 rounded-none bg-gradient-to-br from-[#2a7fb8] to-[#1e4c6b] flex items-center justify-center text-white font-bold serif">BS</div>
           <div>
             <div class="font-semibold">Dr. Binoy Kumar Sarma</div>
             <div class="text-sm text-slate-500">Pediatrician · MBBS, DCH · Reg. 12619 AMC</div>
@@ -558,7 +589,7 @@
 
         <div class="mt-8 space-y-4">
           <div class="flex items-start gap-4">
-            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+            <div class="w-11 h-11 rounded-none bg-white flex items-center justify-center soft-shadow flex-shrink-0">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.72 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.35 1.85.59 2.81.72a2 2 0 011.72 2z"/></svg>
             </div>
             <div>
@@ -567,16 +598,16 @@
             </div>
           </div>
           <div class="flex items-start gap-4">
-            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+            <div class="w-11 h-11 rounded-none bg-white flex items-center justify-center soft-shadow flex-shrink-0">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             <div class="min-w-0">
               <div class="text-xs text-slate-500">Email</div>
-              <a href="/cdn-cgi/l/email-protection#e491978c8596858a8d8081928dd5dddddda48389858d88ca878b89" class="font-semibold hover:text-[#2a7fb8] transition break-all"><span class="__cf_email__" data-cfemail="fa8f89929b889b94939e9f8c93cbc3c3c3ba9d979b9396d4999597">[email&#160;protected]</span></a>
+              <a href="/cdn-cgi/l/email-protection#a4d1d7ccc5d6c5cacdc0c1d2cd959d9d9de4c3c9c5cdc88ac7cbc9" class="font-semibold hover:text-[#2a7fb8] transition break-all"><span class="__cf_email__" data-cfemail="681d1b00091a0906010c0d1e0159515151280f05090104460b0705">[email&#160;protected]</span></a>
             </div>
           </div>
           <div class="flex items-start gap-4">
-            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+            <div class="w-11 h-11 rounded-none bg-white flex items-center justify-center soft-shadow flex-shrink-0">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a7fb8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div>
@@ -586,7 +617,7 @@
             </div>
           </div>
           <div class="flex items-start gap-4">
-            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center soft-shadow flex-shrink-0">
+            <div class="w-11 h-11 rounded-none bg-white flex items-center justify-center soft-shadow flex-shrink-0">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div>
@@ -600,7 +631,7 @@
 
       <!-- Right column: form -->
       <div class="md:col-span-3 reveal">
-        <div class="card-glass rounded-3xl p-8 md:p-10 float-3d" data-depth="0.3">
+        <div class="card-glass rounded-none p-8 md:p-10 float-3d" data-depth="0.3">
           <form id="appointmentForm" action="https://formspree.io/f/xaeygqja" method="POST">
             <!-- Formspree: send confirmation to the doctor -->
             <input type="hidden" name="_subject" value="New appointment request — Dr. Binoy Kumar Sarma" />
@@ -661,7 +692,7 @@
               <label for="consent" class="text-xs text-slate-600 leading-relaxed">I consent to being contacted at the phone number provided, and understand that this is a request — the clinic will confirm the final slot.</label>
             </div>
 
-            <button type="submit" class="btn-primary mt-8 w-full py-4 rounded-full font-semibold flex items-center justify-center gap-2">
+            <button type="submit" class="btn-primary mt-8 w-full py-4 rounded-none font-semibold flex items-center justify-center gap-2">
               <span id="btnLabel">Send appointment request</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </button>
@@ -692,7 +723,7 @@
         <div class="serif text-lg font-semibold mb-4">Reach the clinics</div>
         <ul class="space-y-3 text-sm text-slate-300">
           <li><a href="tel:+918453860547" class="hover:text-white transition">+91 84538 60547</a></li>
-          <li><a href="/cdn-cgi/l/email-protection#b1c4c2d9d0c3d0dfd8d5d4c7d880888888f1d6dcd0d8dd9fd2dedc" class="hover:text-white transition break-all"><span class="__cf_email__" data-cfemail="83f6f0ebe2f1e2edeae7e6f5eab2bababac3e4eee2eaefade0ecee">[email&#160;protected]</span></a></li>
+          <li><a href="/cdn-cgi/l/email-protection#2550564d4457444b4c4140534c141c1c1c654248444c490b464a48" class="hover:text-white transition break-all"><span class="__cf_email__" data-cfemail="e89d9b80899a8986818c8d9e81d9d1d1d1a88f85898184c68b8785">[email&#160;protected]</span></a></li>
           <li class="pt-2 border-t border-white/10">
             <div class="text-xs uppercase tracking-widest text-[#d4a24c] mb-1">Mon – Wed</div>
             Kolgasia · 10 AM – 8 PM
@@ -708,6 +739,15 @@
       <div>© <span id="yr"></span> Dr. Binoy Kumar Sarma · All rights reserved</div>
       <div>Reg. No. 12619 AMC · Sarathi Multi-Speciality Hospital, Nalbari</div>
     </div>
+
+    <!-- Developer credit -->
+    <div class="mt-6 flex items-center justify-center gap-2 text-[11px] text-slate-500">
+      <span>Designed &amp; developed by</span>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-none border border-white/15 bg-white/5 backdrop-blur text-slate-200 font-semibold tracking-wide">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#d4a24c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        B&amp;C Developers
+      </span>
+    </div>
   </div>
 </section>
 
@@ -719,9 +759,12 @@
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
-      nav.classList.add('bg-white/80','backdrop-blur','shadow-sm');
-    } else {
+      nav.classList.add('bg-[#0f2b3d]','text-white','shadow-[0_1px_0_0_#d4a24c]');
+      nav.querySelectorAll('a:not(.btn-primary)').forEach(a => a.classList.add('text-white'));
       nav.classList.remove('bg-white/80','backdrop-blur','shadow-sm');
+    } else {
+      nav.classList.remove('bg-[#0f2b3d]','text-white','shadow-[0_1px_0_0_#d4a24c]');
+      nav.querySelectorAll('a:not(.btn-primary)').forEach(a => a.classList.remove('text-white'));
     }
   });
 
@@ -747,7 +790,7 @@
           headers: { Accept: 'application/json' }
         });
         if (res.ok) {
-          status.className = 'mt-4 text-sm text-center text-green-700 bg-green-50 border border-green-200 py-3 rounded-lg';
+          status.className = 'mt-4 text-sm text-center text-green-700 bg-green-50 border border-green-700 py-3';
           status.textContent = 'Thank you — your appointment request has been sent. We will confirm shortly.';
           status.classList.remove('hidden');
           form.reset();
@@ -756,7 +799,7 @@
           throw new Error('Network');
         }
       } catch (err) {
-        status.className = 'mt-4 text-sm text-center text-red-700 bg-red-50 border border-red-200 py-3 rounded-lg';
+        status.className = 'mt-4 text-sm text-center text-red-700 bg-red-50 border border-red-700 py-3';
         status.textContent = 'Sorry, something went wrong. Please call +91 84538 60547 directly.';
         status.classList.remove('hidden');
         btnLabel.textContent = 'Try again';
